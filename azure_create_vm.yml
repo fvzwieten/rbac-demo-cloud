@@ -36,7 +36,7 @@
         publisher: '{{ arm_publisher }}'
         sku: '{{ arm_sku }}'
         version: 'latest'
-      name: '{{ vm_name }}'
+      name: '{{ vm_name }}{{ tower_user_name[-2:] }}'
       resource_group: 'AnsibleWorkshop'
       state: present
       vm_size: Standard_DS1_v2
