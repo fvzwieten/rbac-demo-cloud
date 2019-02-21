@@ -1,7 +1,13 @@
 ---
+- name: Azure Create VM
+  hosts: localhost
+  connection: local
 
+  vars_files:
+  - azure_vars.yml
 
-- name: Delete a resource group
-  azure_rm_resourcegroup:
-    name: '{{ rg_name }}'
-    state: absent
+  tasks:
+  - name: Delete a resource group
+    azure_rm_resourcegroup:
+      name: '{{ rg_name }}'
+      state: absent
