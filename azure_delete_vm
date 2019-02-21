@@ -1,0 +1,13 @@
+---
+- name: Azure Delete VM
+  hosts: localhost
+  connection: local
+  vars_files:
+    - azure_vars.yml
+    
+  tasks:
+  - name: Delete Azure Virtual Machine
+    azure_rm_virtualmachine:
+      name: '{{ vm_name }}'
+      resource_group: 'AnsibleWorkshop'
+      state: absent
