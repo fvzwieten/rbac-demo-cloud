@@ -6,8 +6,6 @@
     - azure_vars.yml
   
   vars:
-    azure_virtual_machine: "{{ tower_user_name }}-{{ vm_name }}"
-
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     
@@ -38,7 +36,7 @@
         publisher: '{{ arm_publisher }}'
         sku: '{{ arm_sku }}'
         version: 'latest'
-      name: '{{ azure_virtual_machine }}'
+      name: '{{ vm_name }}'
       resource_group: 'AnsibleWorkshop'
       state: present
       vm_size: Standard_DS1_v2
@@ -53,7 +51,7 @@
     azure_rm_virtualmachine_extension:
       name: winrm-extension
       resource_group: 'AnsibleWorkshop'
-      virtual_machine_name: '{{ azure_virtual_machine }}'
+      virtual_machine_name: '{{ vm_name }}'
       publisher: Microsoft.Compute
       virtual_machine_extension_type: CustomScriptExtension
       type_handler_version: 1.9
@@ -71,7 +69,7 @@
   - name: Get Public IP
     azure_rm_publicipaddress_facts:
       resource_group: 'AnsibleWorkshop'
-      name: '{{ azure_virtual_machine }}01'
+      name: '{{ vm_name }}01'
     register: azure_ip
 
   - debug:
