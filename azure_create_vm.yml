@@ -4,6 +4,7 @@
   connection: local
   vars_files:
     - azure_vars.yml
+  
   vars:
     azure_virtual_machine: "{{ tower_user_name }}-{{ vm_name }}"
 
@@ -22,7 +23,7 @@
   - name: Define arguments for provisioning a Windows VM
     set_fact:
       arm_offer: "WindowsServer"
-      arm_publisher: "MicrosftWindowsServer"
+      arm_publisher: "MicrosoftWindowsServer"
       arm_sku: "2016-Datacenter"
       arm_ports: "80,443,3389,5986"
     when: os_type=="Windows"
