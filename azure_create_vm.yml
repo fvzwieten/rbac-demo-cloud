@@ -5,7 +5,7 @@
   vars_files:
     - azure_vars.yml
   vars:
-    azure_virtual_machine: "{{ tower_user_name }}_{{ vm_name }}"
+    azure_virtual_machine: "{{ tower_user_name }}-{{ vm_name }}"
 
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
