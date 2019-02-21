@@ -31,11 +31,11 @@
     azure_rm_virtualmachine:
       admin_username: '{{ admin_username }}'
       admin_password: '{{ admin_password }}'
-      os_type: {{ os_type }}
+      os_type: '{{ os_type }}'
       image:
-        offer: {{ arm_offer }}
-        publisher: {{ arm_publisher }}
-        sku: {{ arm_sku }}
+        offer: '{{ arm_offer }}'
+        publisher: '{{ arm_publisher }}'
+        sku: '{{ arm_sku }}'
         version: 'latest'
       name: '{{ azure_virtual_machine }}'
       resource_group: 'AnsibleWorkshop'
