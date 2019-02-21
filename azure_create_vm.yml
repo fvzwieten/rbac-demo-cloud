@@ -41,7 +41,7 @@
       resource_group: 'AnsibleWorkshop'
       state: present
       vm_size: Standard_DS1_v2
-      open_ports: {{ arm_ports }}
+      open_ports: '{{ arm_ports }}'
       virtual_network_name: 'AnsibleWorkshopVirtNet'
       subnet_name: 'AnsibleWorkshopSubNet'
       tags:
