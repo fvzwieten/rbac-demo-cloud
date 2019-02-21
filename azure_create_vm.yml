@@ -70,7 +70,7 @@
   - name: Get Public IP
     azure_rm_publicipaddress_facts:
       resource_group: 'AnsibleWorkshop'
-      name: '{{ vm_name }}01'
+      name: '{{ azure_vm_name }}01'
     register: azure_ip
 
   - debug:
