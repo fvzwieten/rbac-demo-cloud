@@ -7,6 +7,8 @@
   - azure_vars.yml
 
   tasks:
+  - debug:
+    msg: "user number: {{ tower_user_name[:-2] }}"
   - name: Delete a resource group
     azure_rm_resourcegroup:
       name: '{{ rg_name }}'
