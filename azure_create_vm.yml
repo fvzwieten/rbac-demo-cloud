@@ -11,13 +11,13 @@
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     
   tasks:
-  - name: Define arguments for provisioning a RHEL VM
+  - name: Define arguments for provisioning a Linux VM
     set_fact:
       arm_offer: "RHEL"
       arm_publisher: "RedHat"
       arm_sku: "7-RAW"
       arm_ports: "22,80,443"
-    when: os_type=="RHEL"
+    when: os_type=="Linux"
 
   - name: Define arguments for provisioning a Windows VM
     set_fact:
