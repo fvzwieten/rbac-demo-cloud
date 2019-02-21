@@ -1,5 +1,5 @@
 ---
-- name: provision azure host
+- name: Azure Create VM
   hosts: localhost
   connection: local
   vars_files:
