@@ -27,6 +27,20 @@
       arm_ports: "80,443,3389,5986"
     when: os_type=="Windows"
  
+  - name: Define additional ports for web server role
+    set_fact:
+      arm_ports: "{{ arm_ports }},80,443"
+    when: role="webserver"
+      
+  - name: Define additional ports for db server role
+    set_fact:
+      arm_ports: "{{ arm_ports }},3306"
+    when: role=="dbserver"
+ 
+  - name: show ports
+    debug:
+      msg: "ports to open: {{ arm_ports }}"
+ 
   - name: provision new Azure virtual host
     azure_rm_virtualmachine:
       admin_username: '{{ admin_username }}'
