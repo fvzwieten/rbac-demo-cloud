@@ -16,7 +16,7 @@
       arm_offer: "RHEL"
       arm_publisher: "RedHat"
       arm_sku: "7-RAW"
-      arm_ports: "22,80,443"
+      arm_ports: "22"
     when: os_type=="Linux"
 
   - name: Define arguments for provisioning a Windows VM
@@ -24,7 +24,7 @@
       arm_offer: "WindowsServer"
       arm_publisher: "MicrosoftWindowsServer"
       arm_sku: "2016-Datacenter"
-      arm_ports: "80,443,3389,5986"
+      arm_ports: "3389,5986"
     when: os_type=="Windows"
  
   - name: Define additional ports for web server role
