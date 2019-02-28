@@ -37,10 +37,6 @@
       arm_ports: "{{ arm_ports }},3306"
     when: role=="dbserver"
  
-  - name: show ports
-    debug:
-      msg: "ports to open: {{ arm_ports }}"
- 
   - name: provision new Azure virtual host
     azure_rm_virtualmachine:
       admin_username: '{{ admin_username }}'
