@@ -30,7 +30,7 @@
   - name: Define additional ports for web server role
     set_fact:
       arm_ports: "{{ arm_ports }},80,443"
-    when: role="webserver"
+    when: role=="webserver"
       
   - name: Define additional ports for db server role
     set_fact:
