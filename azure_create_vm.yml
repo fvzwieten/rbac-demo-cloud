@@ -12,6 +12,7 @@
     ports:
       webserver: "80,443"
       dbserver: "3306"
+    role_ports: "{{ ports[role] }}"
 
   tasks:
 #  - name: Define arguments for provisioning a Linux VM
@@ -32,23 +33,18 @@
   - name: include OS type specific vars
     include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
     
-  - name: set fact
-    set_fact:
-      add_ports: "{{ ports.'{{ role }}' }}"
-      
-  - name: Show ports
+  - name: Show role ports
     debug:
-      msg: "Ports: {{ add_ports }}"
+      msg: "Ports: {{ role_ports }}"
 
   - name: Define additional ports for server role
     set_fact:
-      arm_ports: "{{ arm_ports }},{{ {{ role }}_ports }}"
-    when: role=="webserver"
+      arm_ports: "{{ arm_ports }},{{ role_ports }}"
       
-  - name: Define additional ports for db server role
-    set_fact:
-      arm_ports: "{{ arm_ports }},3306"
-    when: role=="dbserver"
+ # - name: Define additional ports for db server role
+ #   set_fact:
+ #     arm_ports: "{{ arm_ports }},3306"
+ #   when: role=="dbserver"
  
   - name: provision new Azure virtual host
     azure_rm_virtualmachine:
