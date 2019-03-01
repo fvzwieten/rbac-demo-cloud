@@ -4,32 +4,38 @@
   connection: local
   vars_files:
     - azure_vars.yml
+    - azure_vm_{{ os_type }}_vars.yml
   
   vars:
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
+    webserver_ports: "80,443"
+    dbserver_ports: "3306"
 
-  tasks:
-  - name: Define arguments for provisioning a Linux VM
-    set_fact:
-      arm_offer: "RHEL"
-      arm_publisher: "RedHat"
-      arm_sku: "7-RAW"
-      arm_ports: "22"
-    when: os_type=="Linux"
+#  tasks:
+#  - name: Define arguments for provisioning a Linux VM
+#    set_fact:
+#      arm_offer: "RHEL"
+#      arm_publisher: "RedHat"
+#      arm_sku: "7-RAW"
+#      arm_ports: "22"
+#    when: os_type=="Linux"
 
-  - name: Define arguments for provisioning a Windows VM
-    set_fact:
-      arm_offer: "WindowsServer"
-      arm_publisher: "MicrosoftWindowsServer"
-      arm_sku: "2016-Datacenter"
-      arm_ports: "3389,5986"
-    when: os_type=="Windows"
+#  - name: Define arguments for provisioning a Windows VM
+#    set_fact:
+#      arm_offer: "WindowsServer"
+#      arm_publisher: "MicrosoftWindowsServer"
+#      arm_sku: "2016-Datacenter"
+#      arm_ports: "3389,5986"
+#    when: os_type=="Windows"
  
-  - name: Define additional ports for web server role
+  - name: Show ports
+    debug:
+      msg: "Ports: {{ arm_ports }},{{ {{ role }}_ports }}"
+  - name: Define additional ports for server role
     set_fact:
-      arm_ports: "{{ arm_ports }},80,443"
+      arm_ports: "{{ arm_ports }},{{ {{ role }}_ports }}"
     when: role=="webserver"
       
   - name: Define additional ports for db server role
