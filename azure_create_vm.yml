@@ -15,37 +15,13 @@
     role_ports: "{{ ports[role] }}"
 
   tasks:
-#  - name: Define arguments for provisioning a Linux VM
-#    set_fact:
-#      arm_offer: "RHEL"
-#      arm_publisher: "RedHat"
-#      arm_sku: "7-RAW"
-#      arm_ports: "22"
-#    when: os_type=="Linux"
-
-#  - name: Define arguments for provisioning a Windows VM
-#    set_fact:
-#      arm_offer: "WindowsServer"
-#      arm_publisher: "MicrosoftWindowsServer"
-#      arm_sku: "2016-Datacenter"
-#      arm_ports: "3389,5986"
-#    when: os_type=="Windows"
   - name: include OS type specific vars
     include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
     
-  - name: Show role ports
-    debug:
-      msg: "Ports: {{ arm_ports }},{{ ports[role] }}"
-
   - name: Define additional ports for server role
     set_fact:
       arm_ports: "{{ arm_ports }},{{ ports[role] }}"
       
- # - name: Define additional ports for db server role
- #   set_fact:
- #     arm_ports: "{{ arm_ports }},3306"
- #   when: role=="dbserver"
- 
   - name: provision new Azure virtual host
     azure_rm_virtualmachine:
       admin_username: '{{ admin_username }}'
