@@ -15,10 +15,10 @@
     role_ports: "{{ ports[role] }}"
 
   tasks:
-  - name: include OS type specific vars
+  - name: Define OS type specific vars
     include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
     
-  - name: Define additional ports for server role
+  - name: Define Role specific ports
     set_fact:
       arm_ports: "{{ arm_ports }},{{ ports[role] }}"
       
