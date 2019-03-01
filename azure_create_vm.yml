@@ -1,6 +1,6 @@
 ---
 - name: Azure Create VM
-  hosts: localhost
+  hosts: localhos't
   connection: local
   vars_files:
     - "azure_vars.yml"
@@ -9,7 +9,7 @@
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
-    ports:
+    ports
       webserver: "80,443"
       dbserver: "3306"
 
@@ -32,9 +32,13 @@
   - name: include OS type specific vars
     include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
     
+  - name: set fact
+    set_fact:
+      add_ports: "{{ ports[ {{ role }}] }}"
+      
   - name: Show ports
     debug:
-      msg: "Ports: {{ arm_ports }},{{ port[{{ role }}] }}"
+      msg: "Ports: {{ add_ports }}"
 
   - name: Define additional ports for server role
     set_fact:
