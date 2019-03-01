@@ -1,6 +1,6 @@
 ---
 - name: Azure Create VM
-  hosts: localhos't
+  hosts: localhost
   connection: local
   vars_files:
     - "azure_vars.yml"
