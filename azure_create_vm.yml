@@ -35,7 +35,7 @@
     
   - name: Show role ports
     debug:
-      msg: "Ports: "{{ arm_ports }},{{ ports[role] }}"
+      msg: "Ports: {{ arm_ports }},{{ ports[role] }}"
 
   - name: Define additional ports for server role
     set_fact:
