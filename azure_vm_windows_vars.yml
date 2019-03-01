@@ -2,4 +2,4 @@
 arm_offer: "WindowsServer"
 arm_publisher: "MicrosftWindowsServer"
 arm_sku: "2016-Datacenter"
-arm_ports: "80,443,3389,5986"
+arm_ports: "3389,5986"
