@@ -4,7 +4,6 @@
   connection: local
   vars_files:
     - "azure_vars.yml"
-    - "azure_vm_{{ os_type }}_vars.yml"
   
   vars:
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
@@ -29,7 +28,9 @@
 #      arm_sku: "2016-Datacenter"
 #      arm_ports: "3389,5986"
 #    when: os_type=="Windows"
- 
+  - name: include OS type specific vars
+    include_vars: "azure_vm_{{ os_type }}_vars.yml"
+    
   - name: Show ports
     debug:
       msg: "Ports: {{ arm_ports }},{{ {{ role }}_ports }}"
