@@ -35,7 +35,7 @@
       name: '{{ azure_vm_name }}'
       resource_group: 'AnsibleWorkshop'
       state: present
-      vm_size: Standard_DS1_v2
+      vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
       virtual_network_name: 'AnsibleWorkshopVirtNet'
       subnet_name: 'AnsibleWorkshopSubNet'
