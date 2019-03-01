@@ -9,8 +9,9 @@
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
-    webserver_ports: "80,443"
-    dbserver_ports: "3306"
+    ports:
+      webserver: "80,443"
+      dbserver: "3306"
 
   tasks:
 #  - name: Define arguments for provisioning a Linux VM
@@ -33,7 +34,7 @@
     
   - name: Show ports
     debug:
-      msg: "Ports: {{ arm_ports }},{{ webserver_ports }}"
+      msg: "Ports: {{ arm_ports }},{{ port[{{ role }}] }}"
 
   - name: Define additional ports for server role
     set_fact:
