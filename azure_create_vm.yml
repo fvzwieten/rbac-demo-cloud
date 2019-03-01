@@ -13,7 +13,7 @@
     webserver_ports: "80,443"
     dbserver_ports: "3306"
 
-#  tasks:
+  tasks:
 #  - name: Define arguments for provisioning a Linux VM
 #    set_fact:
 #      arm_offer: "RHEL"
