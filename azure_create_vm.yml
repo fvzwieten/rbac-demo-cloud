@@ -33,7 +33,8 @@
     
   - name: Show ports
     debug:
-      msg: "Ports: {{ arm_ports }},{{ {{ role }}_ports }}"
+      msg: "Ports: {{ arm_ports }},{{ webserver_ports }}"
+
   - name: Define additional ports for server role
     set_fact:
       arm_ports: "{{ arm_ports }},{{ {{ role }}_ports }}"
