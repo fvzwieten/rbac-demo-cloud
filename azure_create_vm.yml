@@ -69,4 +69,4 @@
     register: azure_ip
 
   - debug:
-      msg: "Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
+      msg: "VM name: {{ azure_vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
