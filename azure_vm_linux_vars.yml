@@ -2,4 +2,4 @@
 arm_offer: "RHEL"
 arm_publisher: "RedHat"
 arm_sku: "7-RAW"
-arm_ports: "22,80,443"
+arm_ports: "22"
