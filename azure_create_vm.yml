@@ -29,7 +29,7 @@
 #      arm_ports: "3389,5986"
 #    when: os_type=="Windows"
   - name: include OS type specific vars
-    include_vars: "azure_vm_{{ os_type }}_vars.yml"
+    include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
     
   - name: Show ports
     debug:
