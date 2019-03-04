@@ -11,13 +11,19 @@
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
     ports:
       webserver: "80,443"
+      lbserver: "80,443"
       dbserver: "3306"
     role_ports: "{{ ports[role] }}"
 
   tasks:
   - name: Define OS type specific vars
     include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
-    
+
+  - name: Make sure os_type is linux for load balancer role
+    set_fact:
+      os_type: "Windows"
+    when: role=="lbserver"
+
   - name: Define Role specific ports
     set_fact:
       arm_ports: "{{ arm_ports }},{{ ports[role] }}"
