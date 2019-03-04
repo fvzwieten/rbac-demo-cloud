@@ -40,7 +40,7 @@
       virtual_network_name: 'AnsibleWorkshopVirtNet'
       subnet_name: 'AnsibleWorkshopSubNet'
       tags:
-          '{{ role }}'
+          role: '{{ role }}'
           user: '{{ tower_user_name }}'
 
   - name: Create Azure vm extension to enable HTTPS WinRM listener
