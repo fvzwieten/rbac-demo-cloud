@@ -6,7 +6,7 @@
   vars:
     group: "user_{{ tower_user_name }}"
       
-  - name: Delete Virtual Machines in Azure based on inventory of user"
+  - name: Delete Virtual Machines in Azure based on inventory of user
     azure_rm_virtualmachine:
       name: '{{ item }}'
       resource_group: 'AnsibleWorkshop'
