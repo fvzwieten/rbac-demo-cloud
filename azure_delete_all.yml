@@ -6,13 +6,13 @@
     group: "user_{{ tower_user_name }}"
     vms: "{{ groups[group] }}"
   tasks:
-  - name: show inventory
+  - name: show inventory 1
     debug:
       msg: "current inventory: {{ vms }}"
 
   hosts: localhost
   connection: local
   tasks:
-  - name: show inventory
+  - name: show inventory 2
     debug:
       msg: "current inventory: {{ vms }}"
