@@ -14,3 +14,4 @@
       resource_group: 'AnsibleWorkshop'
       state: absent
     loop: "{{ vms }}"
+    when confirm=="yes"
