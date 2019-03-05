@@ -2,8 +2,10 @@
 - name: Playbook to delete all VM's of the current user
   hosts: "user_{{ tower_user_name }}"
   gather_facts: no
+  vars:
+    vms: groups['user_{{ tower_user_name }}']
   tasks:
   - name: show inventory
     debug:
-      msg: "current inventory: {{ groups }}"
+      msg: "current inventory: {{ vms }}"
   
