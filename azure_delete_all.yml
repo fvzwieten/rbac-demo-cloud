@@ -1,18 +1,12 @@
 ---
-- name: Playbook to delete all VM's of the current user
+- name: Playbook to delete all VM's of user {{ tower_user_name }}
   hosts: localhost
   connection: local
   gather_facts: no
   vars:
     group: "user_{{ tower_user_name }}"
-    vms: "{{ groups[group] }}"
-
-  tasks:
-  - name: show inventory 2
-    debug:
-      msg: "current inventory: {{ vms }}"
       
-  - name: Delete Azure Virtual Machine
+  - name: Delete Virtual Machines in Azure based on inventory of user {{ tower_user_name }}
     azure_rm_virtualmachine:
       name: '{{ item }}'
       resource_group: 'AnsibleWorkshop'
