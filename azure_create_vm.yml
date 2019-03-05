@@ -10,8 +10,8 @@
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
     ports:
-      webserver: "80,443"
-      lbserver: "80,8080,443"
+      webserver: "80"
+      lbserver: "80,8080"
       dbserver: "3306"
     role_ports: "{{ ports[role] }}"
 
