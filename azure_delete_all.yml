@@ -11,3 +11,10 @@
   - name: show inventory 2
     debug:
       msg: "current inventory: {{ vms }}"
+      
+  - name: Delete Azure Virtual Machine
+    azure_rm_virtualmachine:
+      name: '{{ item }}'
+      resource_group: 'AnsibleWorkshop'
+      state: absent
+    loop: "{{ vms }}"
