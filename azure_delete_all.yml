@@ -3,7 +3,7 @@
   hosts: "user_{{ tower_user_name }}"
   gather_facts: no
   vars:
-    vms: groups['user_{{ tower_user_name }}']
+    vms: "{{ groups['user_{{ tower_user_name }}'] }}"
   tasks:
   - name: show inventory
     debug:
