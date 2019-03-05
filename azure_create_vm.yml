@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - "azure_vars.yml"
+    - "files/azure_vars.yml"
   
   vars:
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
@@ -17,7 +17,7 @@
 
   tasks:
   - name: Define OS type specific vars
-    include_vars: "azure_vm_{{ os_type | lower }}_vars.yml"
+    include_vars: "files/azure_vm_{{ os_type | lower }}_vars.yml"
 
   - name: Make sure os_type is linux for load balancer role
     set_fact:
@@ -74,5 +74,6 @@
       name: '{{ azure_vm_name }}01'
     register: azure_ip
 
-  - debug:
+  - name: Report endpoints
+    debug:
       msg: "VM name: {{ azure_vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
