@@ -1,5 +1,5 @@
-"---
-- name: Playbook to delete all VM's of user
+---
+- name: "Playbook to delete all VM's of user {{ tower_user_name }}"
   hosts: localhost
   connection: local
   gather_facts: no
