@@ -1,10 +1,11 @@
 ---
 - name: "Playbook to delete all VM's of user {{ tower_user_name }}"
-  hosts: localhost
+  hosts: localhost]
   connection: local
   gather_facts: no
   vars:
     group: "user_{{ tower_user_name }}"
+    vms: "{{ groups[group] }}" 
 
   tasks:
   - name: Delete Virtual Machines in Azure based on inventory of user
