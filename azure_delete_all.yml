@@ -5,7 +5,8 @@
   gather_facts: no
   vars:
     group: "user_{{ tower_user_name }}"
-      
+
+  tasks:
   - name: Delete Virtual Machines in Azure based on inventory of user
     azure_rm_virtualmachine:
       name: '{{ item }}'
