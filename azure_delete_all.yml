@@ -1,12 +1,12 @@
 "---
-- name: "Playbook to delete all VM's of user
+- name: Playbook to delete all VM's of user
   hosts: localhost
   connection: local
   gather_facts: no
   vars:
     group: "user_{{ tower_user_name }}"
       
-  - name: "Delete Virtual Machines in Azure based on inventory of user"
+  - name: Delete Virtual Machines in Azure based on inventory of user"
     azure_rm_virtualmachine:
       name: '{{ item }}'
       resource_group: 'AnsibleWorkshop'
