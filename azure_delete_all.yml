@@ -9,4 +9,10 @@
   - name: show inventory
     debug:
       msg: "current inventory: {{ vms }}"
-  
+
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: show inventory
+    debug:
+      msg: "current inventory: {{ vms }}"
