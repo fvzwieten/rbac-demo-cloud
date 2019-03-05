@@ -11,7 +11,7 @@
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
     ports:
       webserver: "80,443"
-      lbserver: "80,443"
+      lbserver: "80,8080,443"
       dbserver: "3306"
     role_ports: "{{ ports[role] }}"
 
