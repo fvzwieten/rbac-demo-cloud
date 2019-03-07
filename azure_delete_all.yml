@@ -3,6 +3,8 @@
   hosts: localhost]
   connection: local
   gather_facts: no
+  vars_files:
+    files/azure_vars
   vars:
     group: "user_{{ tower_user_name }}"
     vms: "{{ groups[group] }}" 
