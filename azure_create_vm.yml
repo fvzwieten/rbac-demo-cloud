@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - "files/azure_vars.yml"
+    - "files/azure_vars"
   
   vars:
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
@@ -17,7 +17,7 @@
 
   tasks:
   - name: Define OS type specific vars
-    include_vars: "files/azure_vm_{{ os_type | lower }}_vars.yml"
+    include_vars: "files/azure_vm_{{ os_type | lower }}_vars"
 
   - name: Make sure os_type is linux for load balancer role
     set_fact:
