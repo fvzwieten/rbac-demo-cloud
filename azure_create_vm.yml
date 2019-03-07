@@ -1,5 +1,6 @@
 ---
 - name: Azure Create VM
+  warn: no
   hosts: localhost
   connection: local
   vars_files:
