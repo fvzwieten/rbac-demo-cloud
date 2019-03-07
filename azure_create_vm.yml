@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - "files/azure_vars"
+    files/azure_vars
   
   vars:
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
