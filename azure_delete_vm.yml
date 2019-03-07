@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - files/azure_vars
+    files/azure_vars
     
   tasks:
   - name: Delete Azure Virtual Machine
