@@ -35,9 +35,10 @@
     set_fact:
       arm_ports: "{{ arm_ports }},{{ ports[role] }}"
       
-  - name: debug ports
+  - name: Report on ports that will be opened
     debug:
       msg: "Ports to open: {{ arm_ports }}"
+      verbosity: 1
       
   - name: Provision new Azure virtual host
     azure_rm_virtualmachine:
