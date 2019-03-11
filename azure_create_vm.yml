@@ -29,6 +29,8 @@
   - name: Define Role specific ports
     set_fact:
       arm_ports: "{{ arm_ports }},{{ ports[role] }}"
+      
+  - name: debug ports
     debug:
       msg: "Ports to open: {{ arm_ports }}"
       
