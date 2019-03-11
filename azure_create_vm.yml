@@ -23,8 +23,13 @@
 
   - name: Make sure os_type is linux for load balancer role
     set_fact:
-      os_type: "Windows"
+      os_type: "linux"
     when: role=="lbserver"
+
+  - name: Make sure os_type is windows for domain controller role
+    set_fact:
+      os_type: "windows"
+    when: role=="dcserver"
 
   - name: Define Role specific ports
     set_fact:
