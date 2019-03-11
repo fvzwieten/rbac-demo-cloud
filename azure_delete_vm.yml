@@ -1,6 +1,6 @@
-# playbook to delete a single VM
+# playbook to delete a single VM is part of users inventory.
 # inputs:
-# - vm_name: the name of the VM to delete. It is currently NOT checked against the current inventory
+# - vm_name: the name of the VM to delete.
 
 ---
 - name: Azure Delete VM
@@ -8,11 +8,18 @@
   connection: local
   vars_files:
     files/azure_vars
+  vars:
+    # construct the group name
+    group: "user_{{ tower_user_name }}"
     
+    # get the array of VM's for this group from the inventory
+    vms: "{{ groups[group] }}" 
+
   tasks:
+  # Delete VM from azure when vm_name is part of the array of vms just constructed
   - name: Delete Azure Virtual Machine
     azure_rm_virtualmachine:
       name: '{{ vm_name }}'
       resource_group: 'AnsibleWorkshop'
       state: absent
-    when vm_name in groups['user']
+    when vm_name in vms
