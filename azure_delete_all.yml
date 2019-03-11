@@ -1,3 +1,7 @@
+# Deletes all VM's from tower that are part of this users inventory that are member of the group user_<username>
+# inputs:
+# - confirm: "yes" or "no". It will only execute the tasks when confirm has the value "yes". Only usefull as a survey in Tower.
+
 ---
 - name: "Clean Azure of all VM's of user {{ tower_user_name }}"
   hosts: localhost]
@@ -6,10 +10,15 @@
   vars_files:
     files/azure_vars
   vars:
+    # construct the group name
     group: "user_{{ tower_user_name }}"
+    
+    # get the array of VM's for this group from the inventory
     vms: "{{ groups[group] }}" 
 
   tasks:
+  # example of using a var in the name directive
+  # example of using a loop to iterate over an array of items
   - name: "Delete Virtual Machines in Azure based on inventory of user {{ tower_user_name }}"
     azure_rm_virtualmachine:
       name: '{{ item }}'
