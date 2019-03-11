@@ -1,5 +1,6 @@
 ---
 # env vars come from credential when using Tower or manual set env vars when using ansible-playbook
+# example of using the lookup construct to get environment vars and use them.
 client_id: "{{ lookup('env','AZURE_CLIENT_ID') }}"
 secret: "{{ lookup('env','AZURE_SECRET') }}"
 subscription_id: "{{ lookup('env','AZURE_SUBSCRIPTION_ID') }}"
