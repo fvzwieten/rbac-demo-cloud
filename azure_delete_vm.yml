@@ -1,3 +1,7 @@
+# playbook to delete a single VM
+# inputs:
+# - vm_name: the name of the VM to delete. It is currently NOT checked against the current inventory
+
 ---
 - name: Azure Delete VM
   hosts: localhost
@@ -11,3 +15,4 @@
       name: '{{ vm_name }}'
       resource_group: 'AnsibleWorkshop'
       state: absent
+    when vm_name in groups['user']
