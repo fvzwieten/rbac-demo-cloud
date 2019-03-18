@@ -20,13 +20,13 @@
     debug:
       msg: "{{ vms }}"
 
-  hosts: localhost
-  connection: local
-  tasks:
   # example of using a var in the name directive
   # example of using a loop to iterate over an array of items
       
   - name: "Delete Virtual Machines in Azure based on inventory of user {{ tower_user_name }}"
+    delegate_to: localhost
+    run_once: true
+    connection: local
     azure_rm_virtualmachine:
       name: '{{ item }}'
       resource_group: 'AnsibleWorkshop'
