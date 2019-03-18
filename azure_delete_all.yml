@@ -4,7 +4,7 @@
 
 ---
 - name: "Clean Azure of all VM's of user {{ tower_user_name }}"
-  hosts: user_{{ tower_user_name }}
+  hosts: all
   gather_facts: no
   vars_files:
     files/azure_vars
