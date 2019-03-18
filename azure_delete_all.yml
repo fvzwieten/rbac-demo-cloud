@@ -15,16 +15,16 @@
     # get the array of VM's for this group from the inventory
     vms: "{{ groups[group] }}"
     
-  tasks: []
+  tasks:
+  - name: debug
+    debug:
+      msg: "{{ vms }}"
 
   hosts: localhost
   connection: local
   tasks:
   # example of using a var in the name directive
   # example of using a loop to iterate over an array of items
-  - name: debug
-    debug:
-      msg: "{{ vms }}"
       
   - name: "Delete Virtual Machines in Azure based on inventory of user {{ tower_user_name }}"
     azure_rm_virtualmachine:
