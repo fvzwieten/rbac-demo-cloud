@@ -4,7 +4,7 @@
 
 ---
 - name: "Clean Azure of all VM's of user {{ tower_user_name }}"
-  hosts: all
+  hosts: user_{{ tower_user_name }}
   gather_facts: no
   vars_files:
     files/azure_vars
@@ -26,7 +26,7 @@
   - name: "Delete Virtual Machines in Azure based on inventory of user {{ tower_user_name }}"
     delegate_to: localhost
     run_once: true
-    connection: local
+    #connection: local
     azure_rm_virtualmachine:
       name: '{{ item }}'
       resource_group: 'AnsibleWorkshop'
