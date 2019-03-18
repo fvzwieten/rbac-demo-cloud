@@ -8,11 +8,6 @@
   vars_files:
     files/azure_vars
   vars:
-    # construct the group name
-#    group: "user_{{ tower_user_name }}"
-    
-    # get the array of VM's for this group from the inventory
-#    vms: "{{ groups[group] }}" 
     azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
 
   tasks:
@@ -22,4 +17,3 @@
       name: '{{ azure_vm_name }}'
       resource_group: 'AnsibleWorkshop'
       state: absent
-#    when vm_name in vms
