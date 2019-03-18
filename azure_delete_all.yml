@@ -17,7 +17,6 @@
 
   hosts: localhost
   connection: local
-  gather_facts: no
   tasks:
   # example of using a var in the name directive
   # example of using a loop to iterate over an array of items
