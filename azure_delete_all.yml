@@ -22,7 +22,7 @@
   # example of using a loop to iterate over an array of items
   - name: debug
     debug:
-      msg: "{{ groups }}"
+      msg: "{{ vms }}"
       
   - name: "Delete Virtual Machines in Azure based on inventory of user {{ tower_user_name }}"
     azure_rm_virtualmachine:
