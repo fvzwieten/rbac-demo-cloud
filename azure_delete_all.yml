@@ -13,7 +13,9 @@
     group: "user_{{ tower_user_name }}"
     
     # get the array of VM's for this group from the inventory
-    vms: "{{ groups[group] }}" 
+    vms: "{{ groups[group] }}"
+    
+  tasks: []
 
   hosts: localhost
   connection: local
