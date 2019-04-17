@@ -80,7 +80,7 @@
 
   - name: Show Tower node that this is executed from
     debug:
-      msg: "Tower node: {{ ansible_fqdn }}"
+      msg: "Tower node: {{ ansible_fqdn[6:9] }}"
 
   - name: create Azure resource group
     azure_rm_resourcegroup:
