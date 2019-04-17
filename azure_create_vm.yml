@@ -43,9 +43,9 @@
     role_ports: "{{ ports[role] }}"
 
     #vars neded for azure resource group
-    azure_resource_group = 'AnsibleWorkshop'
-    azure_virtual_network = 'vn_{{ azure_resource_group }}_01'
-    azure_subnet = 'sn_{{ azure_virtual_network }}'
+    azure_resource_group = "AnsibleWorkshop"
+    azure_virtual_network = "vn_{{ azure_resource_group }}_01"
+    azure_subnet = "sn_{{ azure_virtual_network }}"
 
   # We now start the tasks that must be executed in order
   tasks:
