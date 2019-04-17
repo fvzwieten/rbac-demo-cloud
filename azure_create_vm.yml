@@ -80,7 +80,7 @@
 
   - name: Show Tower node that this is executed from
     debug:
-      msg: "Tower node: {{ inventory_hostname_short }}"
+      msg: "Tower node: {{ inventory_hostname }}"
 
   - name: create Azure resource group
     azure_rm_resourcegroup:
