@@ -148,8 +148,8 @@
   # Get a fact from azure itself
   - name: Get Public IP
     azure_rm_publicipaddress_facts:
-      resource_group: 'AnsibleWorkshop'
-      name: '{{ azure_vm_name }}01'
+      resource_group: '{{ azure_resource_group }}'
+      name: '{{ vm_name }}'
     register: azure_ip
 
   # Use a debug statement to report on stuff in the logging
