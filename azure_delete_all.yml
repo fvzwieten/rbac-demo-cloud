@@ -1,0 +1,19 @@
+---
+# playbook to delete a Azure Resource Group
+# inputs:
+# - none
+- name: Azure Delete Resource Group
+  hosts: localhost
+  connection: local
+  vars_files:
+    files/azure_vars
+  vars:
+    # get the guid from the Tower instance this playbook is executing from. Change to a static value is not needed.
+    guid: "{{ ansible_fqdn[6:10] }}"
+
+  tasks:
+  # Delete Azure Resource Group
+  - name: Delete Azure Resource Group
+    azure_rm_resourcegroup:
+      name: 'ansible_workshop_{{ guid }}'
+      state: absent
