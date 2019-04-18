@@ -129,7 +129,7 @@
     azure_rm_virtualmachine_extension:
       name: winrm-extension
       resource_group: 'AnsibleWorkshop'
-      virtual_machine_name: '{{ azure_vm_name }}'
+      virtual_machine_name: '{{ vm_name }}'
       publisher: Microsoft.Compute
       virtual_machine_extension_type: CustomScriptExtension
       type_handler_version: 1.9
