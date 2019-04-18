@@ -29,10 +29,6 @@
     guid: "{{ ansible_fqdn[6:10] }}"
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
-    
-    # get the last 2 characters of the username in Tower, which is your assigned number. This is used to postfix
-    # resources in Azure to make them unique within one Azure workgroup
-    azure_vm_name: "{{ vm_name }}{{ tower_user_name[-2:] }}"
 
     # Example of creating an array
     ports:
@@ -117,7 +113,7 @@
         publisher: '{{ arm_publisher }}'
         sku: '{{ arm_sku }}'
         version: 'latest'
-      name: '{{ azure_vm_name }}'
+      name: '{{ vm_name }}'
       resource_group: '{{ azure_resource_group }}'
       state: present
       vm_size: '{{ arm_size }}'
