@@ -155,4 +155,4 @@
   # Use a debug statement to report on stuff in the logging
   - name: Report endpoints
     debug:
-      msg: "VM name: {{ azure_vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
+      msg: "VM name: {{ vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
