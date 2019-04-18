@@ -17,3 +17,4 @@
     azure_rm_resourcegroup:
       name: 'ansible_workshop_{{ guid }}'
       state: absent
+    when confirm = "yes"
