@@ -118,15 +118,15 @@
         sku: '{{ arm_sku }}'
         version: 'latest'
       name: '{{ azure_vm_name }}'
-      resource_group: '{{azure_resource_group}}'
+      resource_group: '{{ azure_resource_group }}'
       state: present
       vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
-      virtual_network_name: 'AnsibleWorkshopVirtNet'
-      subnet_name: 'AnsibleWorkshopSubNet'
+      virtual_network_name: '{{ azure_virtual_network }}'
+      subnet_name: '{{ azure_subnet }}'
       tags:
           role: '{{ role }}'
-          user: '{{ tower_user_name }}'
+          guid: '{{ guid }}'
 
   # Because Ansible needs winrm we must add it
   - name: Create Azure vm extension to enable HTTPS WinRM listener
