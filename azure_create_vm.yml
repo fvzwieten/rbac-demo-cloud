@@ -25,6 +25,8 @@
   
   # this is to specify vars as part of this playbook
   vars:
+    # get the guid from the Tower instance this playbook is executing from. Change to a static value is not needed.
+    guid: "{{ ansible_fqdn[6:10] }}"
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
     
@@ -43,7 +45,7 @@
     role_ports: "{{ ports[role] }}"
 
     #vars neded for azure resource group
-    azure_resource_group: "AnsibleWorkshop"
+    azure_resource_group: "ansible_workshop_{{ guid }}"
     azure_virtual_network: "vn_{{ azure_resource_group }}_01"
     azure_subnet: "sn_{{ azure_virtual_network }}"
 
@@ -77,10 +79,6 @@
     debug:
       msg: "Ports to open: {{ arm_ports }}"
       verbosity: 1
-
-  - name: Show Tower node that this is executed from
-    debug:
-      msg: "Tower node: {{ ansible_fqdn[6:10] }}"
 
   - name: create Azure resource group
     azure_rm_resourcegroup:
