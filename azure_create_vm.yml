@@ -81,10 +81,10 @@
       name: '{{azure_resource_group}}'
       location: westeurope
       state: present
-      subscription_id: "{{ subscription_id }}"
-      secret: "{{ secret }}"
-      tenant: "{{ tenant }}"
-      client_id: "{{ client_id }}"
+ #     subscription_id: "{{ subscription_id }}"
+ #     secret: "{{ secret }}"
+ #     tenant: "{{ tenant }}"
+ #     client_id: "{{ client_id }}"
 
   - name: create Azure virtual network in resource group
     azure_rm_virtualnetwork:
