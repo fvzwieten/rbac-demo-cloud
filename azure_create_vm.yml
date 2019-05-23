@@ -85,6 +85,10 @@
     until: arm_result.msg.find("is present") != -1
     retries: 1
     delay: 10
+    
+  - name: Report on result
+    debug:
+      msg: "{{ arm_result }}"
 
   - name: create Azure virtual network in resource group
     azure_rm_virtualnetwork:
