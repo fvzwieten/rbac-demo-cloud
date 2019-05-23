@@ -81,10 +81,10 @@
       name: '{{azure_resource_group}}'
       location: westeurope
       state: present
- #     subscription_id: "{{ subscription_id }}"
- #     secret: "{{ secret }}"
- #     tenant: "{{ tenant }}"
- #     client_id: "{{ client_id }}"
+    register: arm_result
+    until: arm_result.msg.find("is present") != -1
+    retries: 1
+    delay: 10
 
   - name: create Azure virtual network in resource group
     azure_rm_virtualnetwork:
