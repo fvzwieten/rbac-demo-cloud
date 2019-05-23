@@ -93,6 +93,10 @@
       address_prefixes_cidr:
       - 10.1.0.0/16
       state: present
+    register: arm_result
+    until: arm_result.msg.find("is present") != -1
+    retries: 1
+    delay: 10
   
   - name: create Azure subnet in virtualnetwork
     azure_rm_subnet:
@@ -101,6 +105,10 @@
       virtual_network_name: '{{azure_virtual_network}}'
       resource_group: '{{azure_resource_group}}'
       address_prefix_cidr: 10.1.0.0/24
+    register: arm_result
+    until: arm_result.msg.find("is present") != -1
+    retries: 1
+    delay: 10
 
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
