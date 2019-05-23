@@ -82,9 +82,9 @@
       location: westeurope
       state: present
     register: arm_result
-#    until: arm_result.msg.find("is present") != -1
-#    retries: 1
-#    delay: 10
+    until: arm_result.msg.result != False
+    retries: 1
+    delay: 10
     
   - name: Report on result
     debug:
