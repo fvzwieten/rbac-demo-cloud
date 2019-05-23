@@ -82,7 +82,7 @@
       location: westeurope
       state: present
     register: arm_result
-    until: arm_result.failed != True
+    until: arm_result.failed != False
     retries: 1
     delay: 10
     
