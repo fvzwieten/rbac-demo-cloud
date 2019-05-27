@@ -92,8 +92,8 @@
 
   - name: create Azure virtual network in resource group
     azure_rm_virtualnetwork:
-      name: '{{azure_virtual_network}}'
-      resource_group: '{{azure_resource_group}}'
+      name: '{{ azure_virtual_network }}'
+      resource_group: '{{ azure_resource_group }}'
       address_prefixes_cidr:
       - 10.1.0.0/16
       state: present
@@ -104,10 +104,10 @@
   
   - name: create Azure subnet in virtualnetwork
     azure_rm_subnet:
-      name: '{{azure_subnet}}'
+      name: '{{ azure_subnet }}'
       state: present
-      virtual_network_name: '{{azure_virtual_network}}'
-      resource_group: '{{azure_resource_group}}'
+      virtual_network_name: '{{ azure_virtual_network }}'
+      resource_group: '{{ azure_resource_group }}'
       address_prefix_cidr: 10.1.0.0/24
     register: arm_result
 #    until: arm_result.msg.find("is present") != -1
