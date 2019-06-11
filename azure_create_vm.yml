@@ -76,20 +76,21 @@
       msg: "Ports to open: {{ arm_ports }}"
       verbosity: 1
 
+  # the retry logic of the following 3 tasks is that if this playbook is
+  # run multiple times concurrently azure will try to create these objects
+  # at exactly the same time because the present state is not there for all
+  # of the instances. This produces errors. This is a common construct to prevent
+  # mid-air collisions of these kinds.
   - name: create Azure resource group
     azure_rm_resourcegroup:
       name: '{{azure_resource_group}}'
       location: westeurope
       state: present
     register: arm_result
-    until: arm_result.failed != False
-    retries: 1
+    until: arm_result.failed != True
+    retries: 2
     delay: 10
     
-  - name: Report on result
-    debug:
-      msg: "{{ arm_result }}"
-
   - name: create Azure virtual network in resource group
     azure_rm_virtualnetwork:
       name: '{{ azure_virtual_network }}'
@@ -98,9 +99,9 @@
       - 10.1.0.0/16
       state: present
     register: arm_result
-#    until: arm_result.msg.find("is present") != -1
-#    retries: 1
-#    delay: 10
+    until: arm_result.failed != True
+    retries: 2
+    delay: 10
   
   - name: create Azure subnet in virtualnetwork
     azure_rm_subnet:
@@ -110,9 +111,9 @@
       resource_group: '{{ azure_resource_group }}'
       address_prefix_cidr: 10.1.0.0/24
     register: arm_result
-#    until: arm_result.msg.find("is present") != -1
-#    retries: 1
-#    delay: 10
+    until: arm_result.failed != True
+    retries: 2
+    delay: 10
 
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
