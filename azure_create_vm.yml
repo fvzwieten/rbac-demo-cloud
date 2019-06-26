@@ -1,5 +1,5 @@
 # This playbook will create a VM in Azure
-# Inpouts:
+# Inputs:
 # - vm_name: the name part of the fqdn
 # - os_type: linux or windows
 # - admin_username: The username of a to be created local administrator
