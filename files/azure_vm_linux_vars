@@ -2,6 +2,6 @@
 # vars specific for linux VM's. Which template to use from the marketplace and which ports to open for this OS in Azure
 arm_offer: "RHEL"
 arm_publisher: "RedHat"
-arm_sku: "8"
+arm_sku: "7-RAW"
 arm_size: "Standard_DS1_v2"
 arm_ports: "22,9090"
