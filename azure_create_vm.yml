@@ -55,7 +55,8 @@
   # show username and password from machine credential
   - name: Show machine credentials
     debug:
-      var: machine
+      var: ansible_user
+      var: ansible_password
       
   # the name of a task. You see this back in de default logging
   - name: Define OS type specific vars
