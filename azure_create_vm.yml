@@ -53,8 +53,9 @@
   tasks:
 
     # show username and password from machine credential
-    debug:
-      var: machine
+    - name: Show machine credentials
+      debug:
+        var: machine
       
     # the name of a task. You see this back in de default logging
   - name: Define OS type specific vars
