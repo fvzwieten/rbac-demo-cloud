@@ -45,18 +45,13 @@
     azure_virtual_network: "vn_{{ azure_resource_group }}_01"
     azure_subnet: "sn_{{ azure_virtual_network }}"
 
-    machine:
-      username: '{{ ansible_user }}'
-      password: '{{ ansible_password }}'
-
   # We now start the tasks that must be executed in order
   tasks:
 
   # show username and password from machine credential
   - name: Show machine credentials
     debug:
-      var: ansible_user
-      var: ansible_password
+      msg: "Machine username = {{ ansible_user }}"
       
   # the name of a task. You see this back in de default logging
   - name: Define OS type specific vars
