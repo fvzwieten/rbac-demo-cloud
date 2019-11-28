@@ -47,11 +47,6 @@
 
   # We now start the tasks that must be executed in order
   tasks:
-
-  # show username and password from machine credential
-  - name: Show machine credentials
-    debug:
-      msg: "Machine username = {{ ansible_user }}"
       
   # the name of a task. You see this back in de default logging
   - name: Define OS type specific vars
