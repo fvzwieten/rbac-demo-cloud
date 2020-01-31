@@ -21,7 +21,8 @@
   # this is a way to specify files that contain vars
   vars_files:
     # here we include a var file from a sub directory "files"
-    files/azure_vars
+  - files/azure_vars
+  - files/account 
   
   # this is to specify vars as part of this playbook
   vars:
@@ -118,8 +119,8 @@
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
     azure_rm_virtualmachine:
-      admin_username: '{{ admin_username }}'
-      admin_password: '{{ admin_password }}'
+      admin_username: '{{ account_username }}'
+      admin_password: '{{ account_password }}'
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
