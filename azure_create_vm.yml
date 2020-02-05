@@ -13,7 +13,7 @@
 
   # There is no concepts of hosts in a public cloud. We use localhost to specify that this playbook runs from the
   # Ansible execution host (engine or tower).
-  hosts: localhost
+  hosts: credhost
   
   # likewise, since we use the Azure API, there is no concept of a connection. Thus we specify local
   connection: local
