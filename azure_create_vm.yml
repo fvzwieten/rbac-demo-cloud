@@ -88,7 +88,7 @@
       state: present
     register: arm_result
     until: arm_result.failed != True
-    retries: 2
+    retries: 10
     delay: 10
     
   - name: create Azure virtual network in resource group
@@ -100,7 +100,7 @@
       state: present
     register: arm_result
     until: arm_result.failed != True
-    retries: 2
+    retries: 10
     delay: 10
   
   - name: create Azure subnet in virtualnetwork
@@ -112,7 +112,7 @@
       address_prefix_cidr: 10.1.0.0/24
     register: arm_result
     until: arm_result.failed != True
-    retries: 2
+    retries: 10
     delay: 10
 
   - name: Provision new Azure virtual host
