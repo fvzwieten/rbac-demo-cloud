@@ -16,7 +16,7 @@
   hosts: localhost
   
   # likewise, since we use the Azure API, there is no concept of a connection. Thus we specify local
-  # connection: local
+  connection: local
   
   # this is a way to specify files that contain vars
   vars_files:
