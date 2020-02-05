@@ -119,7 +119,7 @@
     # Here we call the azure module to create a virtual machine.
     # It uses the provided machine credential to give it an initial local admin account
     azure_rm_virtualmachine:
-      admin_username: '{{ ansible_username }}'
+      admin_username: '{{ ansible_user }}'
       admin_password: '{{ ansible_password }}'
       os_type: '{{ os_type }}'
       image:
