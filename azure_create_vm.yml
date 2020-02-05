@@ -2,10 +2,10 @@
 # Inputs:
 # - vm_name: the name part of the fqdn
 # - os_type: linux or windows
-# - admin_username: The username of a to be created local administrator
-# - admin_password: The password that admin_username will get
 # - role: The role for this server. This is needed to open firewall ports in Azure (not in the VM itself)
-#         webserver / dbserver / lbserver / dcserver
+#         it is also used to tag the VM so the VM will end up in the correct group when doing dynamic inventory
+# Note: it needs to have a machine credential that will be used to give the VM it's initial credentials. This
+#       machine credential needs to be of type username/password
 
 ---
   # the name of this playbook. You see this back in the default logging
@@ -117,10 +117,11 @@
     delay: 10
 
   - name: Provision new Azure virtual host
-    # Here we call the azure module to create a virtual machine
+    # Here we call the azure module to create a virtual machine.
+    # It uses the provided machine credential to give it an initial local admin account
     azure_rm_virtualmachine:
-      admin_username: '{{ account_username }}'
-      admin_password: '{{ account_password }}'
+      admin_username: '{{ ansible_username }}'
+      admin_password: '{{ ansible_password }}'
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
