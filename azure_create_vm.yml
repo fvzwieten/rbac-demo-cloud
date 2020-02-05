@@ -115,6 +115,11 @@
     retries: 10
     delay: 10
 
+  # show username and password from machine credential
+  - name: Show machine credentials
+    debug:
+      msg: "Machine username = {{ ansible_user }} password = {{ ansible_password }}"
+
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine.
     # It uses the provided machine credential to give it an initial local admin account
