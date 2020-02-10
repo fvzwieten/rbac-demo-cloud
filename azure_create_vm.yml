@@ -90,6 +90,7 @@
   # at exactly the same time because the present state is not there for all
   # of the instances. This produces errors. This is a common construct to prevent
   # mid-air collisions of these kinds.
+  
   - name: create Azure resource group
     azure_rm_resourcegroup:
       name: '{{azure_resource_group}}'
@@ -123,11 +124,6 @@
     until: arm_result.failed != True
     retries: 10
     delay: 10
-
-  # show username and password from machine credential
-  - name: Show machine credentials
-    debug:
-      msg: "Machine username = {{ hostvars['instance'].admin_username }} password = {{ hostvars['instance'].admin_password }}"
 
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine.
