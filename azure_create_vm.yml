@@ -8,11 +8,11 @@
 #       machine credential needs to be of type username/password
 
 ---
-- name: Retrieve machine credentials
+- name: Retrieve admin credentials for Windows
   hosts: localhost
   gather_facts: no
   tasks:
-  - name: add instance host with correct credentials in inventory
+  - name: add instance host with machine credential in inventory
     add_host:
       name: "instance"
       admin_username: "{{ansible_user}}"
