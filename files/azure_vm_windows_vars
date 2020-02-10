@@ -1,5 +1,5 @@
 ---
-# vars specific for linux VM's. Which template to use from the marketplace and which ports to open for this OS in Azure
+# vars specific for windows VM's. Which template to use from the marketplace and which ports to open for this OS in Azure
 arm_offer: "WindowsServer"
 arm_publisher: "MicrosoftWindowsServer"
 arm_sku: "2016-Datacenter"
