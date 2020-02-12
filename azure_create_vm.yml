@@ -29,9 +29,9 @@
   connection: local
   
   # this is a way to specify files that contain vars
-  vars_files:
+  #vars_files:
     # here we include a var file from a sub directory "files"
-  - files/azure_vars
+  #- files/azure_vars
   
   # this is to specify vars as part of this playbook
   vars:
