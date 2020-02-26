@@ -47,7 +47,8 @@
   # this is to specify vars as part of this playbook
   vars:
     # get the guid from the Tower instance this playbook is executing from. Change to a static value is not needed.
-    guid: "{{ ansible_fqdn[6:10] }}"
+    # guid: "{{ ansible_fqdn[6:10] }}"
+    guid: "0001"
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
     winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
 
