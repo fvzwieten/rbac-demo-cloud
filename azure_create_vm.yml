@@ -147,7 +147,7 @@
         publisher: '{{ arm_publisher }}'
         sku: '{{ arm_sku }}'
         version: 'latest'
-      name: '{{ project }}_{{ vm_name }}'
+      name: '{{ project }}-{{ vm_name }}'
       resource_group: '{{ azure_resource_group }}'
       state: present
       vm_size: '{{ arm_size }}'
@@ -155,6 +155,7 @@
       virtual_network_name: '{{ azure_virtual_network }}'
       subnet_name: '{{ azure_subnet }}'
       tags:
+          project: '{{ project }}'
           role: '{{ role }}'
           guid: '{{ guid }}'
 
@@ -163,7 +164,7 @@
     azure_rm_virtualmachineextension:
       name: winrm-extension
       resource_group: 'ansible_workshop_{{ guid }}'
-      virtual_machine_name: '{{ project }}_{{ vm_name }}'
+      virtual_machine_name: '{{ project }}-{{ vm_name }}'
       publisher: Microsoft.Compute
       virtual_machine_extension_type: CustomScriptExtension
       type_handler_version: "1.9"
@@ -183,10 +184,10 @@
   - name: Get Public IP
     azure_rm_publicipaddress_facts:
       resource_group: '{{ azure_resource_group }}'
-      name: '{{ project }}_{{ vm_name }}01'
+      name: '{{ project }}-{{ vm_name }}01'
     register: azure_ip
 
   # Use a debug statement to report on stuff in the logging
   - name: Report endpoints
     debug:
-      msg: "VM name: {{ project }}_{{ vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
+      msg: "VM name: {{ project }}-{{ vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
