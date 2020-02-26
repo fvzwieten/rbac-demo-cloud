@@ -28,7 +28,6 @@
 # - role: The role for this server. This is needed to open firewall ports in Azure (not in the VM itself)
 #         webserver / dbserver / lbserver / dcserver
 
----
   # the name of this playbook. You see this back in the default logging
 - name: Azure Create VM
 
