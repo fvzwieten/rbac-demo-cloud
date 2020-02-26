@@ -56,7 +56,7 @@
       webserver: "80"
       lbserver: "80,8080"
       dbserver: "3306"
-      dcserver: "389,636,3268,3269,88,53,445,135,123,464,138,9389,139"
+      monserver: "80"
 
     #example to getting an element from an array
     role_ports: "{{ ports[role] }}"
@@ -74,17 +74,6 @@
   
     # An example of including a file whos name is dynamic
     include_vars: "files/azure_vm_{{ os_type | lower }}_vars"
-
-  # Example of changing the value of a var depending on some condition
-  - name: Make sure os_type is linux for load balancer role
-    set_fact:
-      os_type: "linux"
-    when: role=="lbserver"
-
-  - name: Make sure os_type is windows for domain controller role
-    set_fact:
-      os_type: "windows"
-    when: role=="dcserver"
 
   # construct a var from multiple other vars
   - name: Define Role specific ports
