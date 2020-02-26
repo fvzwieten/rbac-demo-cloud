@@ -1,3 +1,24 @@
+---
+# ============================================================= PLAY =====================================================
+# run this on localhost without connection local
+# to get access to the tower machine credential data
+# create a dummy host in the in memory inventory and
+# store the machine credentials as inventory vars
+# these can then be retrieved across plays in this
+# playbook.
+
+- name: Retrieve admin credentials for Windows
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: add dummy host with machine credential in inventory
+    add_host:
+      name: "dummy"
+      admin_username: "{{ansible_user}}"
+      admin_password: "{{ansible_password}}"
+
+
+# ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
 # Inputs:
 # - vm_name: the name part of the fqdn
