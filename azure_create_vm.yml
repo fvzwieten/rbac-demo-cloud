@@ -139,8 +139,8 @@
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
     azure_rm_virtualmachine:
-      admin_username: '{{ admin_username }}'
-      admin_password: '{{ admin_password }}'
+      admin_username: "{{ hostvars['dummy'].admin_username }}"
+      admin_password: "{{ hostvars['dummy'].admin_password }}"
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
