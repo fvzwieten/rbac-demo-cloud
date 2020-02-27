@@ -17,6 +17,11 @@
       admin_username: "{{ansible_user}}"
       admin_password: "{{ansible_password}}"
 
+  - name: show account
+    debug:
+      msg: ">>{{ hostvars['dummy'].admin_username }}<< - >>{{ hostvars['dummy'].admin_password }}<<"
+
+
 
 # ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
