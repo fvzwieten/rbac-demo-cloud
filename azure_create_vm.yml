@@ -17,12 +17,6 @@
       admin_username: "{{ansible_user}}"
       admin_password: "{{ansible_password}}"
 
-  - name: show account
-    debug:
-      msg: ">>{{ hostvars['dummy'].admin_username }}<< - >>{{ hostvars['dummy'].admin_password }}<<"
-
-
-
 # ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
 # Inputs:
@@ -129,10 +123,6 @@
     until: arm_result.failed != True
     retries: 2
     delay: 10
-
-  - name: show account
-    debug:
-      msg: ">>{{ hostvars['dummy'].admin_username }}<< - >>{{ hostvars['dummy'].admin_password }}<<"
 
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
