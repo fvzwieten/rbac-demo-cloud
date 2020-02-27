@@ -7,7 +7,7 @@
 # these can then be retrieved across plays in this
 # playbook.
 
-- name: Retrieve admin credentials for Windows
+- name: Retrieve admin credentials
   hosts: localhost
   gather_facts: no
   tasks:
@@ -124,6 +124,10 @@
     until: arm_result.failed != True
     retries: 2
     delay: 10
+
+  - name: show account
+    debug:
+      msg: ">>{{ hostvars['dummy'].admin_username }}<< - >>{{ hostvars['dummy'].admin_password }}<<"
 
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
