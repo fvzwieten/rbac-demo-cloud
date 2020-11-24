@@ -1,0 +1,5 @@
+- name: Create an availability set with default options
+  azure_rm_availabilityset:
+    name: myAvailabilitySet
+    location: eastus
+    resource_group: myResourceGroup
