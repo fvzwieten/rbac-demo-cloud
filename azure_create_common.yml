@@ -21,20 +21,11 @@
    # We now start the tasks that must be executed in order
   tasks:
       
-  # the retry logic of the following 3 tasks is that if this playbook is
-  # run multiple times concurrently azure will try to create these objects
-  # at exactly the same time because the present state is not there for all
-  # of the instances. This produces errors. This is a common construct to prevent
-  # mid-air collisions of these kinds.
   - name: create Azure resource group
     azure_rm_resourcegroup:
       name: '{{ project }}'
       location: westeurope
       state: present
-   # register: arm_result
-   # until: arm_result.failed != True
-   # retries: 2
-   # delay: 10
     
   - name: create Azure virtual network in resource group
     azure_rm_virtualnetwork:
@@ -43,10 +34,6 @@
       address_prefixes_cidr:
       - 10.1.0.0/16
       state: present
-   # register: arm_result
-   # until: arm_result.failed != True
-   # retries: 2
-   # delay: 10
   
   - name: create Azure subnet in virtualnetwork
     azure_rm_subnet:
@@ -55,13 +42,3 @@
       virtual_network_name: '{{ project }}'
       resource_group: '{{ project }}'
       address_prefix_cidr: 10.1.0.0/24
-   # register: arm_result
-   # until: arm_result.failed != True
-   # retries: 2
-   # delay: 10
-
-  - name: Create an availability set with default options
-    azure_rm_availabilityset:
-      name: '{{ project }}'
-      location: eastus
-      resource_group: '{{ project }}'
