@@ -82,45 +82,6 @@
       msg: "Ports to open: {{ arm_ports }}"
       verbosity: 1
 
-  # the retry logic of the following 3 tasks is that if this playbook is
-  # run multiple times concurrently azure will try to create these objects
-  # at exactly the same time because the present state is not there for all
-  # of the instances. This produces errors. This is a common construct to prevent
-  # mid-air collisions of these kinds.
-  #- name: create Azure resource group
-  #  azure_rm_resourcegroup:
-  #    name: '{{azure_resource_group}}'
-  #    location: westeurope
-  #    state: present
-  #  register: arm_result
-  #  until: arm_result.failed != True
-  #  retries: 2
-  #  delay: 10
-    
-  #- name: create Azure virtual network in resource group
-  #  azure_rm_virtualnetwork:
-  #    name: '{{ azure_virtual_network }}'
-  #    resource_group: '{{ azure_resource_group }}'
-  #    address_prefixes_cidr:
-  #    - 10.1.0.0/16
-  #    state: present
-  #  register: arm_result
-  #  until: arm_result.failed != True
-  #  retries: 2
-  #  delay: 10
-  
-  #- name: create Azure subnet in virtualnetwork
-  #  azure_rm_subnet:
-  #    name: '{{ azure_subnet }}'
-  #    state: present
-  #    virtual_network_name: '{{ azure_virtual_network }}'
-  #    resource_group: '{{ azure_resource_group }}'
-  #    address_prefix_cidr: 10.1.0.0/24
-  #  register: arm_result
-  #  until: arm_result.failed != True
-  #  retries: 2
-  #  delay: 10
-
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
     azure_rm_virtualmachine:
@@ -146,7 +107,7 @@
           role: '{{ role }}'
     register: azure_vm
 
-  # Because Ansible needs winrm we must add it
+  # Because Ansible needs winrm we must add it using an azure vm extension
   - name: Create Azure vm extension to enable HTTPS WinRM listener
     azure_rm_virtualmachineextension:
       name: winrm-extension
@@ -166,16 +127,4 @@
       host: '{{azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress}}'
       timeout: 600
     when: os_type == "Windows"
-
-  # Get a fact from azure itself
-  - name: Get Public IP
-    azure_rm_publicipaddress_info:
-      resource_group: '{{ project }}'
-      name: '{{ project }}-{{ vm_name }}'
-    register: azure_ip
-
-  # Use a debug statement to report on stuff in the logging
-  - name: Report endpoints
-    debug:
-    #  msg: "VM name: {{ project }}-{{ vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
-      msg: "{{ azure_vm }}"
+    
