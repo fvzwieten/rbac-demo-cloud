@@ -135,6 +135,7 @@
         version: 'latest'
       name: '{{ project }}-{{ vm_name }}'
       resource_group: '{{ project }}'
+      availability_set: '{{ project }}'
       state: present
       vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
@@ -143,6 +144,7 @@
       tags:
           project: '{{ project }}'
           role: '{{ role }}'
+    register: azure_vm
 
   # Because Ansible needs winrm we must add it
   - name: Create Azure vm extension to enable HTTPS WinRM listener
@@ -176,4 +178,4 @@
   - name: Report endpoints
     debug:
     #  msg: "VM name: {{ project }}-{{ vm_name }} Role: {{ role }} Public IP: {{ azure_ip.ansible_facts.azure_publicipaddresses[0].properties.ipAddress }}"
-      msg: "{{ azure_ip }}"
+      msg: "{{ azure_vm }}"
