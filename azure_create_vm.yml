@@ -96,7 +96,6 @@
         version: 'latest'
       name: '{{ project }}-{{ vm_name }}'
       resource_group: '{{ project }}'
-      availability_set: '{{ project }}'
       state: present
       vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
