@@ -126,6 +126,7 @@
     azure_rm_virtualmachine:
       admin_username: "{{ hostvars['dummy'].admin_username }}"
       admin_password: "{{ hostvars['dummy'].admin_password }}"
+      ssh_password_enabled: yes
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
@@ -166,7 +167,7 @@
 
   # Get a fact from azure itself
   - name: Get Public IP
-    azure_rm_publicipaddress_facts:
+    azure_rm_publicipaddress_info:
       resource_group: '{{ project }}'
       name: '{{ project }}-{{ vm_name }}'
     register: azure_ip
