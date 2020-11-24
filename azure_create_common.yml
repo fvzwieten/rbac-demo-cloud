@@ -54,14 +54,14 @@
       state: present
       virtual_network_name: '{{ project }}'
       resource_group: '{{ project }}'
-     address_prefix_cidr: 10.1.0.0/24
+      address_prefix_cidr: 10.1.0.0/24
    # register: arm_result
    # until: arm_result.failed != True
    # retries: 2
    # delay: 10
 
-- name: Create an availability set with default options
-  azure_rm_availabilityset:
-    name: "{{ project }}"
-    location: eastus
-    resource_group: "{{ project }}"
+  - name: Create an availability set with default options
+    azure_rm_availabilityset:
+      name: '{{ project }}'
+      location: eastus
+      resource_group: '{{ project }}'
