@@ -57,10 +57,8 @@
     #example to getting an element from an array
     role_ports: "{{ ports[role] }}"
 
-    #vars neded for azure resource group
-    #azure_resource_group: "{{ project }}_{{ guid }}"
-    #azure_virtual_network: "vn_{{ azure_resource_group }}_01"
-    #azure_subnet: "sn_{{ azure_virtual_network }}"
+    # construct a unique name
+    azure_vm_name: "{{ project }}-{{ vm_name }}"
 
   # We now start the tasks that must be executed in order
   tasks:
@@ -87,19 +85,19 @@
     azure_rm_virtualmachine:
       admin_username: "{{ hostvars['dummy'].admin_username }}"
       admin_password: "{{ hostvars['dummy'].admin_password }}"
-      ssh_password_enabled: yes
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
         publisher: '{{ arm_publisher }}'
         sku: '{{ arm_sku }}'
         version: 'latest'
-      name: '{{ project }}-{{ vm_name }}'
+      name: '{{ azure_vm_name }}'
       resource_group: '{{ project }}'
       state: present
       vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
       virtual_network_name: '{{ project }}'
+      network_interface_name: '{{ azure_vm_name }}'
       subnet_name: '{{ project }}'
       tags:
           project: '{{ project }}'
