@@ -91,7 +91,10 @@
   - name: Provision new Azure virtual host
     # Here we call the azure module to create a virtual machine
     azure_rm_virtualmachine:
-      admin_username: "{{ hostvars['dummy'].admin_username }}"
+      admin_username: "ansible"
+    ssh_public_keys:
+      - path: /home/ansible/.ssh/authorized_keys
+        key_data: "{{ ansible_ssh_public_key }}"
       admin_password: "{{ hostvars['dummy'].admin_password }}"
       os_type: '{{ os_type }}'
       image:
