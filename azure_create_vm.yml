@@ -81,6 +81,8 @@
   - name: Report on ports that will be opened
     debug:
       msg: "Ports to open: {{ arm_ports }}"
+      msg: "Username: {{ admin_username }}"
+      msg: "Password: {{ admin_password }}"
       verbosity: 1
 
   - name: Provision new Azure virtual host
