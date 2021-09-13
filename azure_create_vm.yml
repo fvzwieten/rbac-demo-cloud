@@ -1,10 +1,5 @@
 ---
 # ============================================================= PLAY =====================================================
-# run this on localhost without connection local
-# to get access to the tower machine credential data
-# create a dummy host in the in memory inventory and
-# store the machine credentials as inventory vars
-# ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
 # Inputs:
 # - vm_name: the name part of the fqdn
