@@ -105,7 +105,7 @@
       vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
       virtual_network_name: '{{ project }}'
-      network_interfaces: '{{ azure_vm_name }}'
+    #  network_interfaces: '{{ azure_vm_name }}'
       subnet_name: '{{ project }}'
       tags:
           project: '{{ project }}'
