@@ -9,6 +9,7 @@
 
 - name: Retrieve admin credentials
   hosts: localhost
+  connection: local
   gather_facts: no
   tasks:
   - name: add dummy host with machine credential in inventory
