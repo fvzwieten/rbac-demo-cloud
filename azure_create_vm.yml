@@ -80,9 +80,7 @@
   # Example of logging output. Here is only runs when the verbosity level is 1
   - name: Report on ports that will be opened
     debug:
-      msg: "Ports to open: {{ arm_ports }}"
-      msg: "Username: {{ ansible_username }}"
-      msg: "Password: {{ ansible_password }}"
+      msg: "Ports to open: {{ arm_ports }} Username: {{ ansible_username }} Password: {{ ansible_password }}"
       verbosity: 1
 
   - name: Provision new Azure virtual host
