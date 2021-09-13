@@ -16,6 +16,10 @@
       name: "dummy"
       admin_username: "{{ansible_user}}"
       admin_password: "{{ansible_password}}"
+  - name: "show machine credential"
+    debug:
+      msg: "Username: {{ ansible_user }} Password: {{ ansible_password }}"
+      verbosity: 1
 
 # ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
