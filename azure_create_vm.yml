@@ -95,8 +95,8 @@
       ssh_public_keys:
         - path: /home/ansible/.ssh/authorized_keys
           key_data: "{{ ansible_ssh_public_key }}"
-      ssh_password_enabled: false
-#      admin_password: "{{ hostvars['dummy'].admin_password }}"
+#      ssh_password_enabled: false
+      admin_password: "r3dh4t1!"
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
