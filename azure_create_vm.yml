@@ -7,20 +7,20 @@
 # these can then be retrieved across plays in this
 # playbook.
 
-- name: Retrieve admin credentials
-  hosts: localhost
-  connection: local
-  gather_facts: no
-  tasks:
-  - name: add dummy host with machine credential in inventory
-    add_host:
-      name: "dummy"
-      admin_username: "{{ansible_user}}"
-      admin_password: "{{ansible_password}}"
-  - name: "show machine credential"
-    debug:
-      msg: "Username: {{ ansible_user }} Password: {{ ansible_password }}"
-      verbosity: 1
+#- name: Retrieve admin credentials
+#  hosts: localhost
+#  connection: local
+#  gather_facts: no
+#  tasks:
+#  - name: add dummy host with machine credential in inventory
+#    add_host:
+#      name: "dummy"
+#      admin_username: "{{ansible_user}}"
+#      admin_password: "{{ansible_password}}"
+#  - name: "show machine credential"
+#    debug:
+#      msg: "Username: {{ ansible_user }} Password: {{ ansible_password }}"
+#      verbosity: 1
 
 # ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
