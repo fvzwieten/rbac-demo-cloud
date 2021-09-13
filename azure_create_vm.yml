@@ -4,31 +4,11 @@
 # to get access to the tower machine credential data
 # create a dummy host in the in memory inventory and
 # store the machine credentials as inventory vars
-# these can then be retrieved across plays in this
-# playbook.
-
-#- name: Retrieve admin credentials
-#  hosts: localhost
-#  connection: local
-#  gather_facts: no
-#  tasks:
-#  - name: add dummy host with machine credential in inventory
-#    add_host:
-#      name: "dummy"
-#      admin_username: "{{ansible_user}}"
-#      admin_password: "{{ansible_password}}"
-#  - name: "show machine credential"
-#    debug:
-#      msg: "Username: {{ ansible_user }} Password: {{ ansible_password }}"
-#      verbosity: 1
-
 # ============================================================= PLAY =====================================================
 # This playbook will create a VM in Azure
 # Inputs:
 # - vm_name: the name part of the fqdn
 # - os_type: linux or windows
-# - admin_username: The username of a to be created local administrator
-# - admin_password: The password that admin_username will get
 # - role: The role for this server. This is needed to open firewall ports in Azure (not in the VM itself)
 #         webserver / dbserver / lbserver / dcserver
 
@@ -85,7 +65,7 @@
   # Example of logging output. Here is only runs when the verbosity level is 1
   - name: Report on ports that will be opened
     debug:
-      msg: "Ports to open: {{ arm_ports }} ssh pub key: {{ ansible_ssh_public_key }}"
+      msg: "Ports to open: {{ arm_ports }}"
       verbosity: 1
 
   - name: Provision new Azure virtual host
@@ -96,7 +76,6 @@
         - path: /home/ansible/.ssh/authorized_keys
           key_data: "{{ ansible_ssh_public_key }}"
       ssh_password_enabled: false
-#      admin_password: "r3dh4t1!"
       os_type: '{{ os_type }}'
       image:
         offer: '{{ arm_offer }}'
@@ -109,7 +88,6 @@
       vm_size: '{{ arm_size }}'
       open_ports: '{{ arm_ports }}'
       virtual_network_name: '{{ project }}'
-    #  network_interfaces: '{{ azure_vm_name }}'
       subnet_name: '{{ project }}'
       tags:
           project: '{{ project }}'
