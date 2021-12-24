@@ -16,6 +16,10 @@
   
   # likewise, since we use the Azure API, there is no concept of a connection. Thus we specify local
   connection: local
+  
+  # specify which collections are being used in this playbook
+  collections:
+  - azure.azcollection
 
   # Also, there is no need to gather facts from the localhost (which speeds things up)
   gather_facts: no
