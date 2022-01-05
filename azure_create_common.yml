@@ -12,6 +12,10 @@
   
   # likewise, since we use the Azure API, there is no concept of a connection. Thus we specify local
   connection: local
+    # specify which collections are being used in this playbook
+  
+  collections:
+  - azure.azcollection
   
   # this is a way to specify files that contain vars
   vars_files:
