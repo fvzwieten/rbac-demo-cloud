@@ -81,6 +81,7 @@
         publisher: '{{ arm_publisher }}'
         sku: '{{ arm_sku }}'
         version: 'latest'
+      managed_disk_type: 'Standard_LRS'
       name: '{{ azure_vm_name }}'
       resource_group: '{{ project }}'
       state: present
