@@ -29,14 +29,13 @@
     azure_rm_virtualnetwork:
       name: '{{ project }}'
       resource_group: '{{ project }}'
-      address_prefixes_cidr:
-      - 10.1.0.0/16
+      address_prefixes_cidr: '10.{{ vnet }}.0.0/16'
       state: present
   
   - name: create Azure subnet in virtualnetwork
     azure_rm_subnet:
       name: '{{ project }}'
-      state: present
-      virtual_network_name: '{{ project }}'
       resource_group: '{{ project }}'
-      address_prefix_cidr: 10.1.0.0/24
+      virtual_network_name: '{{ project }}'
+      address_prefix_cidr: '10.{{ vnet}}.{{ subnet }}.0/24'
+      state: present
