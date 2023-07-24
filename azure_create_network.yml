@@ -37,5 +37,5 @@
       name: '{{ project }}'
       resource_group: '{{ project }}'
       virtual_network_name: '{{ project }}'
-      address_prefix_cidr: '10.{{ vnet}}.{{ subnet }}.0/24'
+      address_prefix_cidr: '10.{{ vnet }}.{{ subnet }}.0/24'
       state: present
