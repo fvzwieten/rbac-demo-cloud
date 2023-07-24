@@ -25,14 +25,14 @@
    # We now start the tasks that must be executed in order
   tasks:
     
-  - name: create Azure virtual network in resource group
+  - name: create Azure virtual network {{ vnet }} for project {{ project }}
     azure_rm_virtualnetwork:
       name: '{{ project }}'
       resource_group: '{{ project }}'
       address_prefixes_cidr: '10.{{ vnet }}.0.0/16'
       state: present
   
-  - name: create Azure subnet in virtualnetwork
+  - name: create Azure subnet {{ subnet }} in virtualnetwork {{ vnet }} for project {{ project }}
     azure_rm_subnet:
       name: '{{ project }}'
       resource_group: '{{ project }}'
