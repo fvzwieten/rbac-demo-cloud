@@ -3,30 +3,27 @@
 # This playbook will create a resource group in Azure
 # Inputs:
 
-  # the name of this playbook. You see this back in the default logging
+# the name of this playbook. You see this back in the default logging
 - name: Azure Create Resource Group
 
   # There is no concepts of hosts in a public cloud. We use localhost to specify that this playbook runs from the
   # Ansible execution host (engine or tower).
   hosts: localhost
-  
+
   # likewise, since we use the Azure API, there is no concept of a connection. Thus we specify local
   connection: local
-  
+
   # specify which collections are being used in this playbook
   collections:
-  - azure.azcollection
-  
+    - azure.azcollection
+
   # this is a way to specify files that contain vars
-  vars_files:
-    # here we include a var file from a sub directory "files"
-    files/azure_vars
-  
-   # We now start the tasks that must be executed in order
+  vars_files: files/azure_vars
+
+  # We now start the tasks that must be executed in order
   tasks:
-      
-  - name: create Azure resource group
-    azure_rm_resourcegroup:
-      name: '{{ project }}'
-      location: westeurope
-      state: present
+    - name: create Azure resource group
+      azure.azcollection.azure_rm_resourcegroup:
+        name: "{{ project }}"
+        location: westeurope
+        state: present

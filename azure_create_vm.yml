@@ -7,37 +7,36 @@
 # - role: The role for this server. This is needed to open firewall ports in Azure (not in the VM itself)
 #         webserver / dbserver / lbserver / dcserver
 
-  # the name of this playbook. You see this back in the default logging
+# the name of this playbook. You see this back in the default logging
 - name: Azure Create VM
 
   # There is no concepts of hosts in a public cloud. We use localhost to specify that this playbook runs from the
   # Ansible execution host (engine or tower).
   hosts: localhost
-  
+
   # likewise, since we use the Azure API, there is no concept of a connection. Thus we specify local
   connection: local
-  
+
   # specify which collections are being used in this playbook
   collections:
-  - azure.azcollection
+    - azure.azcollection
 
   # Also, there is no need to gather facts from the localhost (which speeds things up)
-  gather_facts: no
+  gather_facts: false
 
   # this is a way to specify files that contain vars
-  vars_files:
-    # here we include a var file from a sub directory "files"
-    files/azure_vars
-  
+  vars_files: files/azure_vars
+
   # this is to specify vars as part of this playbook
   vars:
     # script to run inside the VM when windows VM has been provisioned (aka cloud-init) 
-    winrm_enable_script: "Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1')); Enable-WSManCredSSP -Role Server -Force"
+    winrm_enable_script: Invoke-Expression -Command ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1'));
+      Enable-WSManCredSSP -Role Server -Force
 
     # Example of creating an array
     ports:
       webserver: "80"
-      lbserver: "80,8080"
+      lbserver: 80,8080
       dbserver: "3306"
       monserver: "80"
 
@@ -49,69 +48,69 @@
 
   # We now start the tasks that must be executed in order
   tasks:
-      
   # the name of a task. You see this back in de default logging
-  - name: Define OS type specific vars
-  
-    # An example of including a file whos name is dynamic
-    include_vars: "files/azure_vm_{{ os_type | lower }}_vars"
+    - name: Define OS type specific vars
 
-  # construct a var from multiple other vars
-  - name: Define Role specific ports
-    set_fact:
-      arm_ports: "{{ arm_ports }},{{ ports[role] }}"
-      
-  # Example of logging output. Here is only runs when the verbosity level is 1
-  - name: Report on ports that will be opened
-    debug:
-      msg: "Ports to open: {{ arm_ports }}"
-      verbosity: 1
+      # An example of including a file whos name is dynamic
+      ansible.builtin.include_vars: files/azure_vm_{{ os_type | lower }}_vars
 
-  - name: Provision new Azure virtual host
-    # Here we call the azure module to create a virtual machine
-    azure_rm_virtualmachine:
-      admin_username: "ansible"
-      ssh_public_keys:
-        - path: /home/ansible/.ssh/authorized_keys
-          key_data: "{{ ansible_ssh_public_key }}"
-      ssh_password_enabled: false
-      os_type: '{{ os_type }}'
-      image:
-        offer: '{{ arm_offer }}'
-        publisher: '{{ arm_publisher }}'
-        sku: '{{ arm_sku }}'
-        version: 'latest'
-      managed_disk_type: 'Standard_LRS'
-      name: '{{ azure_vm_name }}'
-      resource_group: '{{ project }}'
-      state: present
-      vm_size: '{{ arm_size }}'
-      open_ports: '{{ arm_ports }}'
-      virtual_network_name: '{{ project }}'
-      subnet_name: '{{ project }}'
-      tags:
-          project: '{{ project }}'
-          role: '{{ role }}'
-    register: azure_vm
+    - name: Define Role specific ports
+      ansible.builtin.set_fact:
+        arm_ports: "{{ arm_ports }},{{ ports[role] }}"
 
-  # Because Ansible needs winrm we must add it using an azure vm extension
-  - name: Create Azure vm extension to enable HTTPS WinRM listener
-    azure_rm_virtualmachineextension:
-      name: winrm-extension
-      resource_group: '{{ project }}'
-      virtual_machine_name: '{{ project }}-{{ vm_name }}'
-      publisher: Microsoft.Compute
-      virtual_machine_extension_type: CustomScriptExtension
-      type_handler_version: "1.9"
-      settings: '{"commandToExecute": "powershell.exe -ExecutionPolicy ByPass {{winrm_enable_script}}"}'
-      auto_upgrade_minor_version: true
-    when: os_type == "Windows"
+    # Example of logging output. Here is only runs when the verbosity level is 1
 
-  # Example of a way to wait before a resource comes online. Can also work with files on a machine.
-  - name: Wait for the WinRM port to come online
-    wait_for:
-      port: 5986
-      host: '{{azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress}}'
-      timeout: 600
-    when: os_type == "Windows"
-    
+    - name: Report on ports that will be opened
+      ansible.builtin.debug:
+        msg: "Ports to open: {{ arm_ports }}"
+        verbosity: 1
+
+    - name: Provision new Azure virtual host
+      # Here we call the azure module to create a virtual machine
+      register: azure_vm
+
+      # Because Ansible needs winrm we must add it using an azure vm extension
+      azure.azcollection.azure_rm_virtualmachine:
+        admin_username: ansible
+        ssh_public_keys:
+          - path: /home/ansible/.ssh/authorized_keys
+            key_data: "{{ ansible_ssh_public_key }}"
+        ssh_password_enabled: false
+        os_type: "{{ os_type }}"
+        image:
+          offer: "{{ arm_offer }}"
+          publisher: "{{ arm_publisher }}"
+          sku: "{{ arm_sku }}"
+          version: latest
+        managed_disk_type: Standard_LRS
+        name: "{{ azure_vm_name }}"
+        resource_group: "{{ project }}"
+        state: present
+        vm_size: "{{ arm_size }}"
+        open_ports: "{{ arm_ports }}"
+        virtual_network_name: "{{ project }}"
+        subnet_name: "{{ project }}"
+        tags:
+          project: "{{ project }}"
+          role: "{{ role }}"
+
+    - name: Create Azure vm extension to enable HTTPS WinRM listener
+      when: os_type == "Windows"
+
+      # Example of a way to wait before a resource comes online. Can also work with files on a machine.
+      azure.azcollection.azure_rm_virtualmachineextension:
+        name: winrm-extension
+        resource_group: "{{ project }}"
+        virtual_machine_name: "{{ project }}-{{ vm_name }}"
+        publisher: Microsoft.Compute
+        virtual_machine_extension_type: CustomScriptExtension
+        type_handler_version: "1.9"
+        settings: '{"commandToExecute": "powershell.exe -ExecutionPolicy ByPass {{winrm_enable_script}}"}'
+        auto_upgrade_minor_version: true
+
+    - name: Wait for the WinRM port to come online
+      when: os_type == "Windows"
+      ansible.builtin.wait_for:
+        port: 5986
+        host: "{{azure_vm.properties.networkProfile.networkInterfaces[0].properties.ipConfigurations[0].properties.publicIPAddress.properties.ipAddress}}"
+        timeout: 600

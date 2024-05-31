@@ -5,16 +5,15 @@
 - name: Azure Delete VM
   hosts: localhost
   connection: local
-  vars_files:
-    files/azure_vars
+  vars_files: files/azure_vars
   vars:
     # get the guid from the Tower instance this playbook is executing from. Change to a static value is not needed.
     guid: "{{ ansible_fqdn[6:10] }}"
 
   tasks:
   # Delete VM from azure
-  - name: Delete Azure Virtual Machine
-    azure_rm_virtualmachine:
-      name: '{{ vm_name }}'
-      resource_group: 'ansible_workshop_{{ guid }}'
-      state: absent
+    - name: Delete Azure Virtual Machine
+      azure.azcollection.azure_rm_virtualmachine:
+        name: "{{ vm_name }}"
+        resource_group: ansible_workshop_{{ guid }}
+        state: absent
