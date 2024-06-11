@@ -1,4 +1,4 @@
 ---
 collections:
-# With just the collection name
-- azure.azcollection
+  # With just the collection name
+  - azure.azcollection
